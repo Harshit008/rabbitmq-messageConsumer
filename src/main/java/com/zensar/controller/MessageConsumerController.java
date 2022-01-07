@@ -20,8 +20,8 @@ public class MessageConsumerController {
 	
 	@RabbitListener(queues = MessageConfig.QUEUE)
     public void consumeMessageFromQueue(JsonOrderBean order) throws JsonProcessingException {
-//		ObjectMapper mapper = new ObjectMapper();
-//	      String jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(order);
-        System.out.println("Message recieved from queue : " + order);
+		ObjectMapper mapper = new ObjectMapper();
+	      String jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(order);
+        System.out.println("Message recieved from queue : \n" + jsonStr);
     }
 }
