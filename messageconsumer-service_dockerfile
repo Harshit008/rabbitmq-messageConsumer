@@ -1,4 +1,4 @@
 FROM openjdk:8
-ADD ./target/macys-orderMessageProducer-service-0.0.1-SNAPSHOT.jar /macys-orderMessageProducer-service-0.0.1-SNAPSHOT.jar
-CMD ["java","-jar", "macys-orderMessageProducer-service-0.0.1-SNAPSHOT.jar"]
-EXPOSE 92
+ADD ./target/macys-orderMessageConsumer-service-0.0.1-SNAPSHOT.jar /macys-orderMessageConsumer-service-0.0.1-SNAPSHOT.jar
+CMD ["java","-jar", "macys-orderMessageConsumer-service-0.0.1-SNAPSHOT.jar"]
+EXPOSE 93
