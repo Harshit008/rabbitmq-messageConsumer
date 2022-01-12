@@ -33,7 +33,7 @@ public class MacysDataSourceConfiguration {
 	public static final String PROPERTY_NAME_HIBERNATE_JDBC_BATCH_SIZE = "hibernate.jdbc.batch_size";
 	public static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
 	public static final String PROPERTY_NAME_HIBERNATE_FMT_SQL = "hibernate.format_sql";
-	public static final String[] ENTITYMANAGER_PACKAGES_TO_SCAN = { "com.zensar.pd.domain" };
+	public static final String[] ENTITYMANAGER_PACKAGES_TO_SCAN = { "com.zensar.domain" };
 
 	public static final String DB_URL = "app.datasource.pd.url";
 	public static final String DB_USER = "app.datasource.pd.username";
