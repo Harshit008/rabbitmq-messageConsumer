@@ -6,6 +6,7 @@ import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,10 +15,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zensar.beans.JsonOrderBean;
 import com.zensar.config.MessageConfig;
+import com.zensar.domain.JsonOrderDomain;
+import com.zensar.services.OrderService;
 
 @RestController
 @Component
 public class MessageConsumerController {
+	
+	@Autowired
+	private OrderService orderService;
+	
 	@GetMapping("/consumeMessage")
 	public String testApi() {
 		return "Welcome to MacysOrder-message-producer app!";
@@ -28,6 +35,8 @@ public class MessageConsumerController {
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(order);
         System.out.println("Message recieved from queue : \n" + jsonStr);
+        orderService.setAndSaveJsonOrderDomain(order);
+        
     }
 	
 	@RabbitListener(bindings = @QueueBinding(
