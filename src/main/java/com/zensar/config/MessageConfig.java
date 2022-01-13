@@ -3,6 +3,7 @@ package com.zensar.config;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.Jackson2XmlMessageConverter;
@@ -102,5 +103,25 @@ public class MessageConfig {
     }
     
     
+    @Bean
+    public RabbitAdmin rabbitAdminForJson(@Qualifier(value = "queueJson") Queue queue, ConnectionFactory connectionFactory) {
+      final TopicExchange exchange = new TopicExchange("JSON_EXCHANGE", true, false);
 
+      final RabbitAdmin admin = new RabbitAdmin(connectionFactory);
+      admin.declareQueue(queue);
+      admin.declareExchange(exchange);
+      admin.declareBinding(BindingBuilder.bind(queue).to(exchange).with(JSON_ROUTING_KEY));
+      return admin;
+    }
+    
+    @Bean
+    public RabbitAdmin rabbitAdminForXml(@Qualifier(value = "queueXml") Queue queue, ConnectionFactory connectionFactory) {
+      final TopicExchange exchange = new TopicExchange("XML_EXCHANGE", true, false);
+
+      final RabbitAdmin admin = new RabbitAdmin(connectionFactory);
+      admin.declareQueue(queue);
+      admin.declareExchange(exchange);
+      admin.declareBinding(BindingBuilder.bind(queue).to(exchange).with(XML_ROUTING_KEY));
+      return admin;
+    }
 }

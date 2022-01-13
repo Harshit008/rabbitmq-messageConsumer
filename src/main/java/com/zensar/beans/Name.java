@@ -9,8 +9,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class OrderTotals {
-
-	private String totalPurchaseAmount;
-	private String seperatorOrderTotals0;
+public class Name {
+	
+	private String firstName;
+	private String lastName;
+	private String seperatorName0;
+	private String seperatorName1;
 }

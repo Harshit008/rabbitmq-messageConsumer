@@ -9,8 +9,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class OrderTotals {
+public class Source {
+	
+	private String clientId;
+	private String subClientId;
+	private String sellingChannelCode;
+	private String seperatorSource0;
+	private String seperatorSource1;
+	
 
-	private String totalPurchaseAmount;
-	private String seperatorOrderTotals0;
 }

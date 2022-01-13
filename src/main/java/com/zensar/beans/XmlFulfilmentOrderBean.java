@@ -1,5 +1,7 @@
 package com.zensar.beans;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,11 +11,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@XmlRootElement
 public class XmlFulfilmentOrderBean {
 	
 	private String orderId;
-	private String orderType;
-	private String partnerId;
+	private String orderTypeCode;
+	private String partnerOrderId;
 	private String orderStatus;
 	private String messageCreatedTimeStamp;
 	private String fulfilmentChannelCode;
@@ -21,7 +24,7 @@ public class XmlFulfilmentOrderBean {
 	private String orderStatusDescription;
 	private String sellZlDivisonnbr;
 	private String sellZlLocationnbr;
-	private Status status;
+	private Source source;
 	private OrderTotals orderTotal;
 	private BillingAddress billingAddress;
 
