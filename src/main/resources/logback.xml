@@ -17,7 +17,7 @@ See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-
     </appender>
 	<appender name="rollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
 	  <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-	    <FileNamePattern>/usr/local/macysAppLogs/digite-icfs-service/digite-%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+	    <FileNamePattern>/usr/local/macysApplogs/macys-message-consumer-server/macys-%d{yyyy-MM-dd}.%i.log</FileNamePattern>
 	    <MaxHistory>100</MaxHistory>
 	    <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>10000KB</maxFileSize>
@@ -28,6 +28,6 @@ See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-
 	  </encoder>
 	</appender>
      <root level="info">
-        <appender-ref ref="console"/>
+        <appender-ref ref="rollingFileAppender"/>
     </root> 
 </configuration>
