@@ -2,6 +2,8 @@ package com.zensar.controller;
 
 import org.json.JSONObject;
 import org.json.XML;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
@@ -22,6 +24,9 @@ import com.zensar.services.OrderService;
 @Component
 public class MessageConsumerController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(MessageConsumerController.class);
+
+	
 	@Autowired
 	private OrderService orderService;
 	
@@ -34,7 +39,7 @@ public class MessageConsumerController {
     public void consumeJsonMessageFromQueue(JsonOrderBean order) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(order);
-        System.out.println("Message recieved from queue : \n" + jsonStr);
+        logger.info("Message recieved from queue : \n" + jsonStr);
         orderService.setAndSaveJsonOrderDomain(order);
         
     }
@@ -46,6 +51,6 @@ public class MessageConsumerController {
     public void consumeXmlMessageFromQueue(JsonOrderBean order) {
 		JSONObject json = new JSONObject(order);
 		String xml = XML.toString(json);
-        System.out.println("Message recieved from queue : \n" + xml);
+		logger.info("Message recieved from queue : \n" + xml);
     }
 }
