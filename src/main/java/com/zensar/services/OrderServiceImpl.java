@@ -1,13 +1,18 @@
 package com.zensar.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zensar.beans.JsonOrderBean;
+import com.zensar.controller.MessageConsumerController;
 import com.zensar.domain.JsonOrderDomain;
 import com.zensar.repo.JsonOrderDomainRepo;
 @Service
 public class OrderServiceImpl implements OrderService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 	
 	@Autowired
 	private JsonOrderDomainRepo jsonRepo;
@@ -30,9 +35,9 @@ public class OrderServiceImpl implements OrderService {
 		domain.setUpcList(order.getUpcList());
 		JsonOrderDomain res = jsonRepo.saveAndFlush(domain);
 		if(res!=null)
-			System.out.println("Order saved to db!");
+			logger.info("Order saved to db!");
 		else
-			System.out.println("Order not saved to db!");
+			logger.info("Order not saved to db!");
 		return domain;
 	}
 
