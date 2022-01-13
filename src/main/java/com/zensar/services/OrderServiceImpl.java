@@ -1,5 +1,9 @@
 package com.zensar.services;
 
+
+import java.sql.Timestamp;
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +37,7 @@ public class OrderServiceImpl implements OrderService {
 		domain.setRfidTagged(order.getRfidTagged());
 		domain.setStorageAttribute(order.getStorageAttribute());
 		domain.setUpcList(order.getUpcList());
+		domain.setCreatedDate(new Timestamp(new Date().getTime()).toString());
 		JsonOrderDomain res = jsonRepo.saveAndFlush(domain);
 		if(res!=null)
 			logger.info("Order saved to db!");

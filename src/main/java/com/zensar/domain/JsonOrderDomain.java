@@ -34,5 +34,6 @@ public class JsonOrderDomain {
 	private String storageAttribute;
 	private String pickType;
 	private String upcList;
+	private String createdDate;
 
 }
