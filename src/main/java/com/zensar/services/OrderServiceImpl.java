@@ -29,7 +29,9 @@ import com.zensar.beans.XmlFulfilmentOrderBean;
 import com.zensar.config.MessageConfig;
 import com.zensar.controller.MessageConsumerController;
 import com.zensar.domain.JsonOrderDomain;
+import com.zensar.domain.XmlFulfilmentOrderDomain;
 import com.zensar.repo.JsonOrderDomainRepo;
+import com.zensar.repo.XmlFulfilmentOrderRepo;
 @Service
 public class OrderServiceImpl implements OrderService {
 	
@@ -37,6 +39,9 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	private JsonOrderDomainRepo jsonRepo;
+	
+	@Autowired
+	private XmlFulfilmentOrderRepo xmlRepo;
 	
 	
 	@Qualifier(value = "rabbitAdminForJson")
@@ -55,30 +60,10 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	AmqpTemplate templateforXml;
 	
-	@Override
-	public JsonOrderDomain setAndSaveJsonOrderDomain(JsonOrderBean order) {
-		JsonOrderDomain domain = new JsonOrderDomain();
-		domain.setCommand(order.getCommand());
-		domain.setImagePathname(order.getImagePathname());
-		domain.setItemDescription(order.getItemDescription());
-		domain.setItemHeight(order.getItemHeight());
-		domain.setItemLength(order.getItemLength());
-		domain.setItemName(order.getItemName());
-		domain.setItemWeight(order.getItemWeight());
-		domain.setItemWidth(order.getItemWidth());
-		domain.setMessageName(order.getMessageName());
-		domain.setPickType(order.getPickType());
-		domain.setRfidTagged(order.getRfidTagged());
-		domain.setStorageAttribute(order.getStorageAttribute());
-		domain.setUpcList(order.getUpcList());
-		domain.setCreatedDate(new Timestamp(new Date().getTime()).toString());
-		JsonOrderDomain res = jsonRepo.saveAndFlush(domain);
-		if(res!=null)
-			logger.info("Order saved to db!");
-		else
-			logger.info("Order not saved to db!");
-		return domain;
-	}
+	@Autowired
+	private OrderSetterHelper setter;
+	
+	
 
 	@Override
 	public List<JsonOrderBean> getJsonMessages() {
@@ -99,6 +84,13 @@ public class OrderServiceImpl implements OrderService {
 				e.printStackTrace();
 			}
 			jsonOrderBeanList.add(jsonOrder);
+			JsonOrderDomain jsonOrderDomain = setter.setJsonOrderDomain(jsonOrder);
+			JsonOrderDomain res = jsonRepo.saveAndFlush(jsonOrderDomain);
+			if(res!=null)
+				logger.info("Json order saved to db!");
+			else
+				logger.info("Json order not saved to db!");
+			
 		}
 		return jsonOrderBeanList;
 	}
@@ -127,6 +119,13 @@ public class OrderServiceImpl implements OrderService {
 			}
 			logger.info("XmlOrder bean received from the queue: "+xmlOrder);
 			xmlOrderBeanList.add(xmlOrder);
+			XmlFulfilmentOrderDomain xmlOrderDomain = setter.setXmlOrderDomain(xmlOrder);
+			XmlFulfilmentOrderDomain res = xmlRepo.saveAndFlush(xmlOrderDomain);
+			
+			if(res!=null)
+				logger.info("Xml order saved to db!");
+			else
+				logger.info("Xml order not saved to db!");
 			}
 		
 		return xmlOrderBeanList;

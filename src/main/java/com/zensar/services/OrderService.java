@@ -8,7 +8,6 @@ import com.zensar.domain.JsonOrderDomain;
 
 public interface OrderService {
 
-	public JsonOrderDomain setAndSaveJsonOrderDomain(JsonOrderBean order);
 
 	public List<JsonOrderBean> getJsonMessages();
 
