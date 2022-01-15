@@ -119,6 +119,7 @@ public class OrderSetterHelperImpl implements OrderSetterHelper {
 		sourceDomain.setSeperatorSource1(source.getSeperatorSource1());
 		sourceDomain.setSubClientId(source.getSubClientId());
 		xmlDomain.setSource(sourceDomain);
+		xmlDomain.setBillingAddress(billingDomain);
 		xmlDomain.setFulfilmentChannelCode(xmlOrder.getFulfilmentChannelCode());
 		xmlDomain.setMessageCreatedTimeStamp(xmlOrder.getMessageCreatedTimeStamp());
 		xmlDomain.setOrderStatus(xmlOrder.getOrderStatus());
