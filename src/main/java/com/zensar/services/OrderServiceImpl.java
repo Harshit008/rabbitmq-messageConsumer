@@ -69,7 +69,7 @@ public class OrderServiceImpl implements OrderService {
 	public List<JsonOrderBean> getJsonMessages() {
 		List<JsonOrderBean> jsonOrderBeanList= new ArrayList<JsonOrderBean>();
 		Properties properties=rabbitAdminForJson.getQueueProperties(MessageConfig.JSON_QUEUE);
-		logger.info("JSON Queue properties are"+properties.toString());
+		//logger.info("JSON Queue properties are"+properties.toString());
 		int mesCount = (Integer)(properties!=null? properties.get(rabbitAdminForJson.QUEUE_MESSAGE_COUNT):0);
 		for(int i=0;i<mesCount;i++) {
 			JsonOrderBean jsonOrder = (JsonOrderBean) templateforJson.receiveAndConvert(MessageConfig.JSON_QUEUE); 
@@ -80,7 +80,6 @@ public class OrderServiceImpl implements OrderService {
 				jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonOrder);
 				logger.info("JSON domain received :"+jsonStr);
 			} catch (JsonProcessingException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			jsonOrderBeanList.add(jsonOrder);
@@ -100,7 +99,7 @@ public class OrderServiceImpl implements OrderService {
 
 		List<XmlFulfilmentOrderBean> xmlOrderBeanList= new ArrayList<XmlFulfilmentOrderBean>();
 		Properties properties=rabbitAdminForJson.getQueueProperties(MessageConfig.XML_QUEUE);
-		logger.info("XML Queue properties are"+properties.toString());
+		//logger.info("XML Queue properties are"+properties.toString());
 		int mesCount = (Integer)(properties!=null? properties.get(rabbitAdminForXml.QUEUE_MESSAGE_COUNT):0);
 		for(int i=0;i<mesCount;i++) {
 			XmlFulfilmentOrderBean xmlOrder = (XmlFulfilmentOrderBean) templateforXml.receiveAndConvert(MessageConfig.XML_QUEUE); 
@@ -114,7 +113,6 @@ public class OrderServiceImpl implements OrderService {
 		        String xmlString = sw.toString();
 		        logger.info("Xml message received: "+xmlString);
 			} catch (JAXBException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			logger.info("XmlOrder bean received from the queue: "+xmlOrder);
@@ -130,6 +128,23 @@ public class OrderServiceImpl implements OrderService {
 		
 		return xmlOrderBeanList;
 	
+	}
+
+	public OrderServiceImpl(JsonOrderDomainRepo jsonRepo, XmlFulfilmentOrderRepo xmlRepo,
+			RabbitAdmin rabbitAdminForJson, RabbitAdmin rabbitAdminForXml, AmqpTemplate templateforJson,
+			AmqpTemplate templateforXml, OrderSetterHelper setter) {
+		super();
+		this.jsonRepo = jsonRepo;
+		this.xmlRepo = xmlRepo;
+		this.rabbitAdminForJson = rabbitAdminForJson;
+		this.rabbitAdminForXml = rabbitAdminForXml;
+		this.templateforJson = templateforJson;
+		this.templateforXml = templateforXml;
+		this.setter = setter;
+	}
+
+	public OrderServiceImpl() {
+		super();
 	}
 
 }
