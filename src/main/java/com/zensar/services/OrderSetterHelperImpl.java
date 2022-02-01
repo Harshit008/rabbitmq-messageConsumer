@@ -33,6 +33,7 @@ import com.zensar.repo.SourceRepo;
 @Service
 public class OrderSetterHelperImpl implements OrderSetterHelper {
 	
+	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(OrderSetterHelperImpl.class);
 	
 	@Autowired

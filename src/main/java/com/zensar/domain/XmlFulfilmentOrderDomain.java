@@ -7,10 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import com.zensar.beans.BillingAddress;
-import com.zensar.beans.OrderTotals;
-import com.zensar.beans.Source;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

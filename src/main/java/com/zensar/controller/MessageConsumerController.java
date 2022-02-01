@@ -2,14 +2,8 @@ package com.zensar.controller;
 
 import java.util.List;
 
-import org.json.JSONObject;
-import org.json.XML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.annotation.Exchange;
-import org.springframework.amqp.rabbit.annotation.Queue;
-import org.springframework.amqp.rabbit.annotation.QueueBinding;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zensar.beans.JsonOrderBean;
 import com.zensar.beans.XmlFulfilmentOrderBean;
-import com.zensar.config.MessageConfig;
-import com.zensar.domain.JsonOrderDomain;
 import com.zensar.services.OrderService;
 
 @RequestMapping("/consumer")
@@ -31,6 +21,7 @@ import com.zensar.services.OrderService;
 @Component
 public class MessageConsumerController {
 	
+	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(MessageConsumerController.class);
 
 	

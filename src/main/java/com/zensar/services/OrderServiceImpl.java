@@ -2,9 +2,7 @@ package com.zensar.services;
 
 
 import java.io.StringWriter;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -12,7 +10,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -23,11 +20,9 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.zensar.beans.JsonOrderBean;
 import com.zensar.beans.XmlFulfilmentOrderBean;
 import com.zensar.config.MessageConfig;
-import com.zensar.controller.MessageConsumerController;
 import com.zensar.domain.JsonOrderDomain;
 import com.zensar.domain.XmlFulfilmentOrderDomain;
 import com.zensar.exceptions.MacysRunTimeException;
@@ -67,6 +62,7 @@ public class OrderServiceImpl implements OrderService {
 	
 	
 
+	@SuppressWarnings("static-access")
 	@Override
 	public List<JsonOrderBean> getJsonMessages() {
 		List<JsonOrderBean> jsonOrderBeanList= new ArrayList<JsonOrderBean>();
@@ -116,6 +112,7 @@ public class OrderServiceImpl implements OrderService {
 		return jsonOrderBeanList;
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public List<XmlFulfilmentOrderBean> getXmlMessages() {
 
